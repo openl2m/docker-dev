@@ -1,0 +1,30 @@
+#
+# docker compose override file for locally developing OpenL2M.
+#
+# To use: rename this file to "compose.override.yaml",
+# and then edit the entries below as needed!
+
+services:
+  postgres:
+    # change the database username and password for your test instance
+    # make sure you also modify the "openl2m" service settings below!
+    # NOTE: this has to be done before the first time bringing up the containers!
+    environment:
+      - POSTGRES_PASSWORD=changeme
+
+  openl2m:
+    # if you want to use a different public port you can map that here, e.g. 8100
+    # map host port 8080 to internal container port 8000 (where django dev web server is running)
+    # format is <host-port>:<container-app-port>
+    ports:
+      # the Django development server is started in Dockerfile "entrypoint.sh",
+      # and runs on port 8000. This is mapped to host port 8000
+      # - host_port: container_port
+      - 8000:8000
+
+    environment:
+      # change the database password, if changed above:
+      - DB_PASS=changeme
+      # you can "hardcode" debug and git branch settings here:
+      - DEBUG=False
+      - BRANCH=main

@@ -1,0 +1,66 @@
+#
+# docker compose file for to speed up development of OpenL2M.
+#
+# Note: this is NOT meant to become a production setup!!!
+#
+name: openl2m-development
+
+services:
+  postgres:
+    image: postgres:16.2-alpine3.19
+    # no public mapping of postgres.
+    # ports:
+    #   - 5432:5432
+    # expose to other internal services only:
+    expose:
+      - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      # Note: POSTGRES_PASSWORD needs to match the openl2m container below,
+      # as well as the Django openl2m/configuration.py in the sources!
+      # the password is set in the compose.override.yaml file
+      # for local customization...
+      # - POSTGRES_PASSWORD=changeme
+      - POSTGRES_USER=openl2m
+      - POSTGRES_DB=openl2m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openl2m"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  openl2m:
+    image: openl2m-dev:localbuild
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # this mount provides the local sources inside the container, at the same path
+      - type: bind
+        source: /opt/openl2m
+        target: /opt/openl2m
+    # ports are mapped in compose.override.yaml, for local customization
+    # ports:
+      # - 8000:8000
+    environment:
+      # Note: the following are set in the compose.override.yaml file
+      # for local customization...
+      # - DB_PASS=changeme
+      # - DEBUG=$DEBUG
+      # - BRANCH=$BRANCH
+      - DB_USER=openl2m
+      - DB_NAME=openl2m
+      #
+      # this points to the name of the db server container:
+      - DB_HOST=postgres
+      # so we can sense easily that we are running in container:
+      - IN_CONTAINER=1
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+
+volumes:
+  postgres_data:
