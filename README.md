@@ -12,6 +12,8 @@ clone the sources, but do not have to install anything new in your environment!
 
 Requirements:
 
+* a working knowledge of the Python 3 and the Django framework
+* a working knowledge of various network management technologies (SNMP, vendor APIs, etc.)
 * a working docker host.
 * rights to create new containers.
 * working knowledge of using docker with compose.
