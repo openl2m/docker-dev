@@ -61,9 +61,10 @@ If not, you will need to modify several of the docker files...
 
 4 - prepare your source tree environment:
 
-    From the host OS shell, run
+From the host OS shell, run
+
 ```
-        ./prepare.sh
+    ./prepare.sh
 ```
 
 This will create the /opt/openl2m path, download sources, and create a basic configuration file.
@@ -115,12 +116,13 @@ In this new shell, run:
     python3 manage.py createsuperuser
 ```
 
-    follow the prompts, and when done:
+follow the prompts, and when done:
+
 ```
     exit
 ```
 
-    to get back to the host environment.
+to get back to the host environment.
 
 
 9 - go back to the web site, login and develop/test as needed!
