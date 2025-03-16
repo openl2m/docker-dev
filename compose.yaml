@@ -42,7 +42,7 @@ services:
         target: /opt/openl2m
     # ports are mapped in compose.override.yaml, for local customization
     # ports:
-      # - 8000:8000
+    #   - 8000:8000
     environment:
       # Note: the following are set in the compose.override.yaml file
       # for local customization...
