@@ -115,16 +115,17 @@ Now hit Control-C, and run as a daemon:
 
 In this new shell, run:
 ```
+    cd /opt/openl2m
+    source venv/bin/activate
     python3 manage.py createsuperuser
 ```
 
 follow the prompts, and when done:
-
 ```
     exit
 ```
 
-to get back to the host environment.
+to get back to the host server shell environment.
 
 
 9 - go back to the web site, login and develop/test as needed!
@@ -143,20 +144,29 @@ any changes are immediately reloaded. Note that all templates are compiled each 
 take into effect right away!
 
 You can now test and commit changes locally, create pull requests at github.com, etc...
+Note that Git branching is handled locally in the host source tree!
 
 Any source file changes in the host /opt/openl2m tree will cause the Django test server to restart,
 meaning you can immediately test on the web site.
 
 Errors trigger a restart with a 10 second pause, allowing you to fix your code problems (see entrypoint.sh)
 
-Note that documentation is only recompiled when the containers start. So to test new documentation,
+Updating documentation
+----------------------
+
+Documentation is only recompiled when the containers start. You can force a rebuild of the HTML files from inside the container:
 ```
-    sudo docker compose down
-    sudo docker compose up -d
+     sudo docker exec -ti openl2m-development-openl2m-1 bash
 ```
 
-Note that Git branching is handled locally in the host source tree!
-
+Then run the following commands:
+```
+    cd /opt/openl2m/
+    source venv/bin/activate
+    cd docs
+    make html
+    exit
+```
 
 Other Things:
 ------------
