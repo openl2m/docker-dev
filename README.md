@@ -117,7 +117,7 @@ In this new shell, run:
 ```
     cd /opt/openl2m
     source venv/bin/activate
-    python3 manage.py createsuperuser
+    python3 openl2m/manage.py createsuperuser
 ```
 
 follow the prompts, and when done:
