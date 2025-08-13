@@ -4,7 +4,7 @@
 #
 FROM ubuntu:24.04
 
-# install required packages for python311 and a build environment
+# install required packages for native python3.12 and a build environment
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y \
       python3 python3-pip python3-venv python3-dev build-essential software-properties-common \
       libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev \
