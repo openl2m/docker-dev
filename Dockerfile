@@ -15,6 +15,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# pre-install the required packages, so further restarts don't take so long...
+RUN pip3 download -r /opt/openl2m/requirements.txt
+
 # copy the startup script (a.k.a. entrypoint)
 ADD entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
