@@ -33,8 +33,8 @@ services:
   openl2m:
     image: openl2m-dev:localbuild
     build:
-      context: .
-      dockerfile: Dockerfile
+      context:  /opt
+      dockerfile: openl2m-docker-dev/Dockerfile
     volumes:
       # this mount provides the local sources inside the container, at the same path
       - type: bind

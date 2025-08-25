@@ -15,8 +15,8 @@ Requirements:
 * a working knowledge of the Python 3 and the Django framework
 * a working knowledge of various network management technologies (SNMP, vendor APIs, etc.)
 * a working docker host.
-* rights to create new containers.
-* working knowledge of using docker with compose.
+* rights to create new Docker containers.
+* working knowledge of using Docker with compose.
 
 ### How this works:
 
@@ -32,9 +32,15 @@ We expect "/opt/openl2m" as the installation (git clone) directory for OpenL2M.
 If this is NOT the case, you need to modify the following files:
 ```
    - compose.yaml
-   - dockerfile
+   - Dockerfile
    - prepare.sh, edit the BASEDIR variable.
 ```
+
+### Docker access:
+
+The "docker" commands below assume you are able to run docker commands from your regular user account.
+If this is not the case, contact your sysadmin, or use "sudo" to run the docker commands.
+For docker access, typically, you need to be a member of the 'docker' group to run docker containers.
 
 ### Installation
 
@@ -90,7 +96,7 @@ You can map that wherever is needed for your setup.
 
 7 - Start the containers:
 ```
-    sudo docker compose up
+    docker compose up
 ```
 
 The first time around, this will take a while, as various parts of the container environment are
@@ -110,7 +116,7 @@ Now hit Control-C, and run as a daemon:
 
 8 - Open a shell to the "openl2m" container, to create the superuser account:
 ```
-    sudo docker exec -ti openl2m-development-openl2m-1 bash
+    docker exec -ti openl2m-development-openl2m-1 bash
 ```
 
 In this new shell, run:
@@ -156,7 +162,7 @@ Updating documentation
 
 Documentation is only recompiled when the containers start. You can force a rebuild of the HTML files from inside the container:
 ```
-     sudo docker exec -ti openl2m-development-openl2m-1 bash
+    docker exec -ti openl2m-development-openl2m-1 bash
 ```
 
 Then run the following commands:
@@ -172,11 +178,11 @@ Other Things:
 ------------
 * To clean up and rebuild the OpenL2M container to test new code (and leave the database intact):
 ```
-    sudo docker compose build openl2m
+    docker compose build openl2m
 ```
 
 Be patient, this copies files again, and reinstalls the python dependencies...
 Next run this to restart the containers:
 ```
-    sudo docker compose up -d
+    docker compose up -d
 ```

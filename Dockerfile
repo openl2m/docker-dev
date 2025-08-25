@@ -16,10 +16,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # pre-install the required packages, so further restarts don't take so long...
-RUN pip3 download -r /opt/openl2m/requirements.txt
+RUN --mount=type=bind,source=openl2m,target=/opt/openl2m pip3 download -r /opt/openl2m/requirements.txt
 
 # copy the startup script (a.k.a. entrypoint)
-ADD entrypoint.sh /opt/
+ADD openl2m-docker-dev/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
 
 WORKDIR /opt/openl2m
